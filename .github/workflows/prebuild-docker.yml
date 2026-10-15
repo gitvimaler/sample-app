@@ -1,21 +1,21 @@
 name: Node setup
 
-on:
- workflow_dispatch:
+on:  
+  workflow_dispatch:
 
 jobs:
  nodejs-setup:
    runs-on: ubuntu-latest
     
    steps:
-     - name: prebuild docker
+     - name: Prebuild docker
        run: docker --version
          
 
      - name: Checkout Repository
-       uses: actions/checkout@v4
+       uses: actions/checkout@v5
 
-     - name: Setup nodejs
+     - name: Setup node.js
        uses: actions/setup-node@v6
        with:
          node-version: '20'
