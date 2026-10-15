@@ -4,24 +4,30 @@ on:
   workflow_dispatch:
 
 jobs:
- nodejs-setup:
-   runs-on: ubuntu-latest
+  nodejs-setup:
+    runs-on: ubuntu-latest
     
-   steps:
-     - name: Prebuild docker
-       run: docker --version
-         
+    steps:
+      - name: Prebuild docker
+        run: docker --version
 
-     - name: Checkout Repository
-       uses: actions/checkout@v5
+      - name: Checkout Repository
+        uses: actions/checkout@v5
 
-     - name: Setup node
-       uses: actions/setup-node@v6
-       with:
-         node-version: '20'
-         cache: 'npm'
-        
-     - name: Conformation version
-       run: |
-         node --version
-         npm --version
+      - name: Setup node
+        uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+          cache: 'npm'
+          # Since your repository root IS the project root, 
+          # you can use package-lock.json directly here:
+          cache-dependency-path: package-lock.json
+
+      # Add this step to install dependencies
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Conformation version
+        run: |
+          node --version
+          npm --version
